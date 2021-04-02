@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='utf-8' />
+    <title>house</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1' />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.3.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.3.0/mapbox-gl.css' rel='stylesheet' />
+    <link rel="icon" type="image/png" href="images/favicon.png" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./css/register.css">
+    <link href="css/style.css" rel="stylesheet" />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        max-width: 600px;
+        margin: 80px;
+        margin-top: 100px;
+      }
+            .marker {
+        background-image: url('mapbox-icon.png');
+        background-size: cover;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        cursor: pointer;
+        }
+        /* #all-container{
+            display: flex;
+        } */
+        #description{
+            margin-left: 700px;
+            margin-top: -250px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header id="home">
+        <nav class="animate">
+          <div class="container">
+            <div class="logo left">
+              <!-- Logo -->
+              <a href="index.html">Kiray Bet</a>
+            </div>
+            <div class="menu-button hide right pointer">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <div class="menu left">
+              <div class="page-menu left">
+                <!-- Navigation -->
+                <li><a href="./index.html">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#Houses">Appartments</a></li>
+                <li><a href="#works">How It Works</a></li>
+                <li><a href="#agents">Agents</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+                <li class="pointer animate"><a href="#" id="logoutlink">Log out</a></li>
+
+              </div>
+              <div class="registration flex-center">
+                <div class="join-us">
+                  <!-- Join Us Button -->
+                  <li class="pointer animate"><a href="./login.html">Log in</a></li>
+
+                </div>
+                <div class="getting-started">
+                  <!-- Get Started Button -->
+                  <li class="main-btn pointer text-center animate"><a href="./register.html">Register</a></li>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
+  
+      <div class="hero">
+          <div class="container">
+            <div class="hero-wrapper">
+              <div class="title">
+                <!-- Hero Title --> 
+                <!--  <h1>Find Your New<br>Modern House </h1> -->
+                <!-- <div class="search lux-shadow"> -->
+                  <!-- Search -->
+                      <!-- <input class="left" type="text" placeholder="Search Your Dream House" id="search_word"> -->
+                      <!-- <button class="search-btn left" id="search_btn">Search</button>                 -->
+                <!-- </div> -->
+  
+              </div>
+              <!-- <div class="hero-image">
+                <div class="hero-image-info yellow-bg flex-center">
+                  <div class="info flex-center">
+                    <img src="images/call-icon.svg" alt="">
+                    <p>+251930995547</p>
+                  </div>
+                  <div class="info flex-center">
+                    <img src="images/point-icon.svg" alt="">
+                    <p>Addis Ababa, Ethiopia</p>
+                  </div>
+                </div>
+              </div> -->
+              <!-- <div class="slide-down text-center pointer">
+                <a href="#about">
+                  <p>Scroll Down</p>
+                  <img src="images/scroll.svg" alt="">
+                </a>
+              </div> -->
+            </div>
+          </div>
+        </div>
+  
+<div id="all-container">
+    <div id='map'></div>
+    <div id="description">
+        <!-- <div class="apprtment-box"> -->
+            <div class="appartment-image">
+                <!-- Appartment Image  -->
+                <img src="images/samplehouse.jpg" alt="">
+            </div>
+            <div class="appartment-info">
+                <div class="appartment-title">
+                <!-- Appartment Address  -->
+                <p>${house.location_word}</p>
+                </div>
+                <div class="appartment-details">
+                <div class="price left">
+                    <!-- Appartment Price  -->
+                    <p>${house.rent Birr </p>
+                </div>
+                <div class="flex-center">
+                    50 m <sup>2</sup>
+                </div>
+                <div class="bedrooms right flex-center">
+                    <img src="images/bed.svg" class="left" alt="">
+                    <!-- Appartment Number Of Bedrooms  -->
+                    <p class="left">${house.} BD</p>
+                </div>
+                <div class="bathrooms right flex-center">
+                    <img src="images/shower.svg" class="left" alt="">
+                    <!-- Appartment Number of Bathrooms  -->
+                    <p class="left">2 BA</p>
+                </div>
+                </div>
+                <div><p>${house.description description description description}</p></div>
+                <div><p>owners phone number: +251930995547 </p></div>
+            </div>
+            </div>
+    </div>
+</div>
+
+<script src="js/jquery.min.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+    <!-- <script src="js/register.js"></script> -->
+    <script src="./node_modules/axios/dist/axios.min.js"></script>
+    <!-- Scripts Ends -->
+
+<script>
+
+const urlParams = new URLSearchParams(window.location.search);
+const id = urlParams.get('id');
+console.log(id)
+
+axios.get(`http://127.0.0.1:5000/api/v1/houses/${id}`)
+  .then(function (response) {
+    var description = document.getElementById("description")
+    house = response.data
+    console.log(house)
+    description.innerHTML = `<div class="appartment-image">
+                <!-- Appartment Image  -->
+                <img src="images/samplehouse${house._id}.jpg" alt="">
+            </div>
+            <div class="appartment-info">
+                <div class="appartment-title">
+                <!-- Appartment Address  -->
+                <p>${house.location_word}</p>
+                </div>
+                <div class="appartment-details">
+                <div class="price left">
+                    <!-- Appartment Price  -->
+                    <p>${house.rent_amount_per_month} Birr </p>
+                </div>
+                <div class="flex-center">
+                    ${house.area_in_square_meter} m <sup>2</sup>
+                </div>
+                <div class="bedrooms right flex-center">
+                    <img src="images/bed.svg" class="left" alt="">
+                    <!-- Appartment Number Of Bedrooms  -->
+                    <p class="left">${house.number_of_bedrooms} BD</p>
+                </div>
+                <div class="bathrooms right flex-center">
+                    <img src="images/shower.svg" class="left" alt="">
+                    <!-- Appartment Number of Bathrooms  -->
+                    <p class="left">2 BA</p>
+                </div>
+                </div>
+                <div><p>${house.description}</p></div>
+                <div><p>owners phone number: <a>+251937819211</> </p></div>
+            </div>`
+            mapboxgl.accessToken = 'pk.eyJ1IjoiYmlydWtrYXNzYXciLCJhIjoiY2txMDNhcnpxMDAxdzJvcDh0cTZ0N2dnbyJ9.-Bvxa8nXj3ougkqB1apXOA';
+
+
+var map = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/mapbox/light-v10',
+  center: [house.coordinates.lat, house.coordinates.lon],
+  zoom: 15
+});
+
+
+// code from the next step will go here!
+var geojson = {
+  type: 'FeatureCollection',
+  features: [{
+    type: 'Feature',
+    geometry: {
+      type: 'Point',
+      coordinates: [house.coordinates.lat, house.coordinates.lon]
+    },
+    properties: {
+      title: 'Mapbox',
+      description: 'Washington, D.C.'
+    }
+  }]
+};
+
+// add markers to map
+geojson.features.forEach(function(marker) {
+
+// create a HTML element for each feature
+var el = document.createElement('div');
+el.className = 'marker';
+
+// make a marker for each feature and add to the map
+new mapboxgl.Marker(el)
+  .setLngLat(marker.geometry.coordinates)
+  .addTo(map);
+});
+
+
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })
+
+
+</script>
+
+</body>
+</html>
